@@ -1,0 +1,27 @@
+{
+  "name": "replay-micro-videos",
+  "version": "1.0.0",
+  "description": "replay admin do catalogo de videos",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "ts-node": "ts-node",
+    "clean-tsc": "rm dist/tsconfig.tsbuildinfo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celsopires1999/replay-micro-videos-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/celsopires1999/replay-micro-videos-typescript/issues"
+  },
+  "homepage": "https://github.com/celsopires1999/replay-micro-videos-typescript#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.38",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  }
+}
