@@ -1,4 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
+import Entity from "../../@seedwork/domain/entity/entity";
+import UniqueEntityId from "../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 export interface CategoryProperties {
   name: string;
@@ -6,23 +7,13 @@ export interface CategoryProperties {
   is_active?: boolean;
   created_at?: Date;
 }
-export class Category {
-  private _id: string;
-
-  constructor(public readonly props: CategoryProperties, id?: string) {
-    this.id = id;
+export class Category extends Entity<CategoryProperties> {
+  constructor(props: CategoryProperties, id?: UniqueEntityId) {
+    super(props, id);
     this.name = this.props.name;
     this.description = this.props.description ?? null;
     this.is_active = this.props.is_active;
     this.created_at = this.props.created_at;
-  }
-
-  get id(): string {
-    return this._id;
-  }
-
-  private set id(value: string) {
-    this._id = value || uuidv4();
   }
 
   get name(): string {

@@ -1,6 +1,7 @@
 import { Category, CategoryProperties } from "./category";
 import { omit } from "lodash";
 import { validate as uuidValidate } from "uuid";
+import UniqueEntityId from "../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 describe("Category Unit Test", () => {
   test("constructor of category with all props", () => {
@@ -135,10 +136,13 @@ describe("Category Unit Test", () => {
 
   test("id prop", () => {
     const arrange = [
-      { name: "new category", id: "" },
-      { name: "new category", id: undefined },
-      { name: "new category", id: null },
-      { name: "new category", id: "8105290d-2b16-499d-aa61-5c252cf5c7d6" },
+      { name: "new category", id: new UniqueEntityId("") },
+      { name: "new category", id: new UniqueEntityId(undefined) },
+      { name: "new category", id: new UniqueEntityId(null) },
+      {
+        name: "new category",
+        id: new UniqueEntityId("8105290d-2b16-499d-aa61-5c252cf5c7d6"),
+      },
     ];
 
     arrange.forEach((item) => {
