@@ -112,8 +112,8 @@ describe("Category Unit Test", () => {
   test("getter and setter of name prop", () => {
     const entity = new Category({ name: "initial" });
     expect(entity.name).toBe("initial");
-    // entity["name"] = "changed";
-    // expect(entity.name).toBe("changed");
+    entity["name"] = "changed";
+    expect(entity.name).toBe("changed");
   });
 
   test("getter and setter of description prop", () => {
