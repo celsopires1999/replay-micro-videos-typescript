@@ -4,6 +4,9 @@ import { validate as uuidValidate } from "uuid";
 import UniqueEntityId from "../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 describe("Category Unit Test", () => {
+  beforeEach(() => {
+    Category.validate = jest.fn();
+  });
   test("constructor of category with all props", () => {
     let props: CategoryProperties = {
       name: "new category",
@@ -14,6 +17,7 @@ describe("Category Unit Test", () => {
 
     let entity = new Category(props);
 
+    expect(Category.validate).toHaveBeenCalled();
     expect(entity.props).toStrictEqual(props);
     expect(entity.name).toBeTruthy();
     expect(entity.description).toBe(props.description);
@@ -108,8 +112,8 @@ describe("Category Unit Test", () => {
   test("getter and setter of name prop", () => {
     const entity = new Category({ name: "initial" });
     expect(entity.name).toBe("initial");
-    entity["name"] = "changed";
-    expect(entity.name).toBe("changed");
+    // entity["name"] = "changed";
+    // expect(entity.name).toBe("changed");
   });
 
   test("getter and setter of description prop", () => {
@@ -150,5 +154,43 @@ describe("Category Unit Test", () => {
       expect(entity.id).not.toBeNull();
       expect(uuidValidate(entity.id)).toBeTruthy();
     });
+  });
+
+  it("should activate a category", () => {
+    const entity = new Category({ name: "some name", is_active: false });
+    expect(entity.is_active).toBeFalsy();
+    entity.activate();
+    expect(entity.is_active).toBeTruthy();
+    expect(Category.validate).toHaveBeenCalledTimes(2);
+  });
+
+  it("should deactivate a category", () => {
+    const entity = new Category({ name: "some name", is_active: true });
+    expect(entity.is_active).toBeTruthy();
+    entity.deactivate();
+    expect(entity.is_active).toBeFalsy();
+    expect(Category.validate).toHaveBeenCalledTimes(2);
+  });
+
+  it("should update a category", () => {
+    const entity = new Category({
+      name: "some name",
+      description: "some description",
+    });
+    expect(entity.name).toBe("some name");
+    expect(entity.description).toBe("some description");
+    expect(entity.props).toMatchObject({
+      name: "some name",
+      description: "some description",
+    });
+
+    entity.update("new name", "new description");
+    expect(entity.name).toBe("new name");
+    expect(entity.description).toBe("new description");
+    expect(entity.props).toMatchObject({
+      name: "new name",
+      description: "new description",
+    });
+    expect(Category.validate).toHaveBeenCalledTimes(2);
   });
 });
