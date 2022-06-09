@@ -27,19 +27,23 @@ export class CategoryRules {
   @IsOptional()
   created_at: Date;
 
-  constructor({
-    name,
-    description,
-    is_active,
-    created_at,
-  }: CategoryProperties) {
-    Object.assign(this, { name, description, is_active, created_at });
+  constructor(data: any) {
+    Object.assign(this, data);
   }
+
+  // constructor({
+  //   name,
+  //   description,
+  //   is_active,
+  //   created_at,
+  // }: CategoryProperties) {
+  //   Object.assign(this, { name, description, is_active, created_at });
+  // }
 }
 
 export class CategoryValidator extends ClassValidatorFields<CategoryRules> {
   validate(data: CategoryProperties): boolean {
-    return super.validate(new CategoryRules(data));
+    return super.validate(new CategoryRules(data)); //(data ??({} as any)
   }
 }
 
