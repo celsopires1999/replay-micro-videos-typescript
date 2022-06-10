@@ -1,11 +1,11 @@
 import ClassValidatorFields from "../validators/class-validator-fields";
 import { FieldsError } from "../validators/validator-fields-interface";
-import { objectContaining } from "expect";
+// import { objectContaining } from "expect";
 
-type Expected = { validator: ClassValidatorFields<any>; data: any };
+type Received = { validator: ClassValidatorFields<any>; data: any };
 
 expect.extend({
-  containsErrorMessages(received: Expected, expected: FieldsError) {
+  containsErrorMessages(received: Received, expected: FieldsError) {
     const { validator, data } = received;
     const isValid = validator.validate(data);
 
@@ -16,9 +16,9 @@ expect.extend({
       };
     }
 
-    const isMatch = objectContaining(expected).asymmetricMatch(
-      validator.errors
-    );
+    const isMatch = expect
+      .objectContaining(expected)
+      .asymmetricMatch(validator.errors);
 
     return isMatch
       ? { pass: true, message: () => "" }
