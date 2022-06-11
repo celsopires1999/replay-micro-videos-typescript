@@ -1,31 +1,89 @@
-import ValidationError from "../../../@seedwork/domain/errors/validation-error";
 import Category, { CategoryProperties } from "./category";
 
 describe("Category Integration Tests", () => {
   describe("validations with errors", () => {
     test("name prop", () => {
       const arrange = [
-        { name: null, message: "The name is required" },
-        { name: undefined, message: "The name is required" },
-        { name: "", message: "The name is required" },
-        { name: 5, message: "The name must be a string" },
-        { name: true, message: "The name must be a string" },
-        { name: true, message: "The name must be a string" },
+        {
+          name: null as any,
+          message: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: undefined as any,
+          message: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: "",
+          message: {
+            name: ["name should not be empty"],
+          },
+        },
+        {
+          name: 5,
+          message: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: true,
+          message: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: false,
+          message: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
         {
           name: "a".repeat(256),
-          message: "The name cannot be greater than 255 characters",
+          message: {
+            name: ["name must be shorter than or equal to 255 characters"],
+          },
         },
       ];
       arrange.forEach((i) => {
-        expect(() => new Category({ name: i.name } as any)).toThrowError(
-          new ValidationError(i.message)
-        );
+        expect(
+          () => new Category({ name: i.name } as any)
+        ).containsErrorMessages(i.message);
       });
     });
     test("description prop", () => {
       const arrange = [
-        { description: 5, message: "The description must be a string" },
-        { description: true, message: "The description must be a string" },
+        {
+          description: 5,
+          message: {
+            description: ["description must be a string"],
+          },
+        },
+        {
+          description: true,
+          message: {
+            description: ["description must be a string"],
+          },
+        },
       ];
 
       arrange.forEach((i) => {
@@ -35,17 +93,42 @@ describe("Category Integration Tests", () => {
               name: "some name",
               description: i.description,
             } as any)
-        ).toThrowError(new ValidationError(i.message));
+        ).containsErrorMessages(i.message);
       });
     });
 
     test("is_active prop", () => {
       const arrange = [
-        { is_active: 5, message: "The is_active must be a boolean" },
-        { is_active: 0, message: "The is_active must be a boolean" },
-        { is_active: 1, message: "The is_active must be a boolean" },
-        { is_active: "aaa", message: "The is_active must be a boolean" },
-        { is_active: "", message: "The is_active must be a boolean" },
+        {
+          is_active: 5,
+          message: {
+            is_active: ["is_active must be a boolean value"],
+          },
+        },
+        {
+          is_active: 0,
+          message: {
+            is_active: ["is_active must be a boolean value"],
+          },
+        },
+        {
+          is_active: 1,
+          message: {
+            is_active: ["is_active must be a boolean value"],
+          },
+        },
+        {
+          is_active: "aaa",
+          message: {
+            is_active: ["is_active must be a boolean value"],
+          },
+        },
+        {
+          is_active: "",
+          message: {
+            is_active: ["is_active must be a boolean value"],
+          },
+        },
       ];
 
       arrange.forEach((i) => {
@@ -55,32 +138,81 @@ describe("Category Integration Tests", () => {
               name: "some name",
               is_active: i.is_active,
             } as any)
-        ).toThrowError(new ValidationError(i.message));
+        ).containsErrorMessages(i.message);
       });
     });
 
     it("should throw an error by updating", () => {
       const arrange = [
-        { name: "", description: "", message: "The name is required" },
-        { name: null, description: "", message: "The name is required" },
-        { name: undefined, description: "", message: "The name is required" },
-        { name: 5, description: "", message: "The name must be a string" },
-        { name: true, description: "", message: "The name must be a string" },
-        { name: "", description: "", message: "The name is required" },
+        {
+          name: "",
+          description: "",
+          message: {
+            name: ["name should not be empty"],
+          },
+        },
+        {
+          name: null,
+          description: "",
+          message: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: undefined,
+          description: "",
+          message: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: 5,
+          description: "",
+          message: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
+        {
+          name: true,
+          description: "",
+          message: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 255 characters",
+            ],
+          },
+        },
         {
           name: "a".repeat(256),
           description: "",
-          message: "The name cannot be greater than 255 characters",
+          message: {
+            name: ["name must be shorter than or equal to 255 characters"],
+          },
         },
         {
           name: "new name",
           description: true,
-          message: "The description must be a string",
+          message: {
+            description: ["description must be a string"],
+          },
         },
         {
           name: "new name",
           description: 5,
-          message: "The description must be a string",
+          message: {
+            description: ["description must be a string"],
+          },
         },
       ];
 
@@ -96,7 +228,7 @@ describe("Category Integration Tests", () => {
       arrange.forEach((i) => {
         expect(() =>
           entity.update(i.name as any, i.description as any)
-        ).toThrowError(new ValidationError(i.message));
+        ).containsErrorMessages(i.message);
         expect(entity.name).toBe("some name");
         expect(entity.description).toBe("some description");
       });
@@ -105,9 +237,13 @@ describe("Category Integration Tests", () => {
     it("should throw an error by activating", () => {
       const entity = new Category({ name: "some name", is_active: false });
       entity["name"] = null;
-      expect(() => entity.activate()).toThrowError(
-        new ValidationError("The name is required")
-      );
+      expect(() => entity.activate()).containsErrorMessages({
+        name: [
+          "name should not be empty",
+          "name must be a string",
+          "name must be shorter than or equal to 255 characters",
+        ],
+      });
     });
   });
   describe("successfull operations", () => {
