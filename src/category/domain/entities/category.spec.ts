@@ -192,5 +192,14 @@ describe("Category Unit Test", () => {
       description: "new description",
     });
     expect(Category.validate).toHaveBeenCalledTimes(2);
+
+    entity.update("updated name", undefined);
+    expect(entity.name).toBe("updated name");
+    expect(entity.description).toBeNull();
+    expect(entity.props).toMatchObject({
+      name: "updated name",
+      description: null,
+    });
+    expect(Category.validate).toHaveBeenCalledTimes(3);
   });
 });

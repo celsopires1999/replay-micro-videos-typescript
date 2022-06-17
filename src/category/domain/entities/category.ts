@@ -32,7 +32,7 @@ export class Category extends Entity<CategoryProperties> {
       ...this.props,
       is_active: false,
     });
-    this.props.is_active = false;
+    this.is_active = false;
   }
 
   update(name: string, description: string): void {
@@ -41,8 +41,8 @@ export class Category extends Entity<CategoryProperties> {
       name,
       description,
     });
-    this.props.name = name;
-    this.props.description = description;
+    this.name = name;
+    this.description = description;
   }
 
   get name(): string {

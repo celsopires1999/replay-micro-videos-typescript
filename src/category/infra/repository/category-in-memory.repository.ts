@@ -7,6 +7,12 @@ export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
   implements CategoryRepository.Repository
 {
+  async exists(name: string): Promise<boolean> {
+    const foundItem = this.items.findIndex((i) => i.name === name);
+
+    return foundItem === -1 ? false : true;
+  }
+
   sortableFields: string[] = ["name", "created_at"];
 
   protected async applyFilter(
