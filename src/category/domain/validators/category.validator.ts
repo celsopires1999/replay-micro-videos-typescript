@@ -1,4 +1,4 @@
-import { CategoryProperties } from "../entities/category";
+import { CategoryProperties } from "#category/domain/entities/category";
 import {
   IsBoolean,
   IsDate,
@@ -7,7 +7,7 @@ import {
   IsString,
   MaxLength,
 } from "class-validator";
-import { ClassValidatorFields } from "../../../@seedwork/domain/validators/class-validator-fields";
+import { ClassValidatorFields } from "#seedwork/domain/validators/class-validator-fields";
 
 export class CategoryRules {
   @MaxLength(255)
@@ -30,20 +30,11 @@ export class CategoryRules {
   constructor(data: any) {
     Object.assign(this, data);
   }
-
-  // constructor({
-  //   name,
-  //   description,
-  //   is_active,
-  //   created_at,
-  // }: CategoryProperties) {
-  //   Object.assign(this, { name, description, is_active, created_at });
-  // }
 }
 
 export class CategoryValidator extends ClassValidatorFields<CategoryRules> {
   validate(data: CategoryProperties): boolean {
-    return super.validate(new CategoryRules(data)); //(data ??({} as any)
+    return super.validate(new CategoryRules(data));
   }
 }
 

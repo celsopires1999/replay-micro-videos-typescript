@@ -1,17 +1,11 @@
-import Category from "../../../category/domain/entities/category";
-import { CategoryInMemoryRepository } from "./category-in-memory.repository";
+import Category from "#category/domain/entities/category";
+import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
 
 let repository: CategoryInMemoryRepository;
 
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
 });
-
-async function loadData(): Promise<Category> {
-  const entity = new Category({ name: "some name" });
-  await repository.insert(entity);
-  return entity;
-}
 
 describe("CategoryInMemoryRepository Unit Tests", () => {
   it("should no filter items when filter object is null", async () => {

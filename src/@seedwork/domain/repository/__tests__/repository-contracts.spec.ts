@@ -1,5 +1,8 @@
-import Entity from "../../entity/entity";
-import { SearchParams, SearchResult } from "../repository-contracts";
+import Entity from "#seedwork/domain/entity/entity";
+import {
+  SearchParams,
+  SearchResult,
+} from "#seedwork/domain/repository/repository-contracts";
 
 describe("Search Unit Tests", () => {
   describe("SearchParams Unit Tests", () => {

@@ -1,7 +1,7 @@
-import CategoryExistsError from "../../../../category/application/errors/category-exists.error";
-import { EntityValidationError } from "../../../../@seedwork/domain/errors/validation-error";
-import { CategoryInMemoryRepository } from "../../../infra/repository/category-in-memory.repository";
-import CreateCategoryUseCase from "../create-category.use-case";
+import CategoryExistsError from "#category/application/errors/category-exists.error";
+import { EntityValidationError } from "#seedwork/domain/errors/validation-error";
+import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
+import CreateCategoryUseCase from "#category/application/use-cases/create-category.use-case";
 
 let repository: CategoryInMemoryRepository;
 let useCase: CreateCategoryUseCase;

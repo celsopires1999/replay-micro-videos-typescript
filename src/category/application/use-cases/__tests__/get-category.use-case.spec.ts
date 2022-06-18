@@ -1,8 +1,8 @@
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
-import Category from "../../../../category/domain/entities/category";
-import { CategoryInMemoryRepository } from "../../../../category/infra/repository/category-in-memory.repository";
-import { CategoryOutput } from "../dto/category-output.dto";
-import GetCategoryUseCase from "../get-category.use-case";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
+import Category from "#category/domain/entities/category";
+import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
+import { CategoryOutput } from "#category/application/use-cases/dto/category-output.dto";
+import GetCategoryUseCase from "#category/application/use-cases/get-category.use-case";
 
 let repository: CategoryInMemoryRepository;
 let useCase: GetCategoryUseCase;

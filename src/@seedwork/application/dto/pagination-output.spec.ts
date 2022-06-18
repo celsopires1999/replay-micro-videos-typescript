@@ -1,5 +1,5 @@
-import { SearchResult } from "../../../@seedwork/domain/repository/repository-contracts";
-import { PaginationOutputMapper } from "./pagination-output";
+import { SearchResult } from "#seedwork/domain/repository/repository-contracts";
+import { PaginationOutputMapper } from "#seedwork/application/dto/pagination-output";
 
 describe("PaginationOutputMapper Unit Tests", () => {
   it("should convert SearchResult into output", () => {

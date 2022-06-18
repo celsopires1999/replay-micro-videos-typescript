@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "replay admin do catalogo de videos",
   "main": "index.js",
+  "imports": {
+    "#seedwork/*": "./dist/@seedwork/*.js",
+    "#category/*": "./dist/category/*.js"
+  },
   "scripts": {
     "tsc": "tsc",
     "tsc:check": "npm run tsc -- --noEmit",

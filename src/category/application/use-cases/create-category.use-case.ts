@@ -1,11 +1,11 @@
-import UseCase from "../../../@seedwork/application/use-case";
-import Category from "../../domain/entities/category";
-import CategoryRepository from "../../domain/repository/category-repository";
-import CategoryExistsError from "../errors/category-exists.error";
+import UseCase from "#seedwork/application/use-case";
+import Category from "#category/domain/entities/category";
+import CategoryRepository from "#category/domain/repository/category-repository";
+import CategoryExistsError from "#category/application/errors/category-exists.error";
 import {
   CategoryOutput,
   CategoryOutputMapper,
-} from "./dto/category-output.dto";
+} from "#category/application/use-cases/dto/category-output.dto";
 
 export class CreateCategoryUseCase implements UseCase<Input, Output> {
   constructor(private categoryRepo: CategoryRepository.Repository) {}

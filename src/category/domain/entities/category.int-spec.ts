@@ -1,4 +1,6 @@
-import Category, { CategoryProperties } from "./category";
+import Category, {
+  CategoryProperties,
+} from "#category/domain/entities/category";
 
 describe("Category Integration Tests", () => {
   describe("validations with errors", () => {

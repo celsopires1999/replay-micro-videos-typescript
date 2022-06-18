@@ -1,8 +1,8 @@
-import UniqueEntityId from "../../../../@seedwork/domain/value-objects/unique-entity-id.vo";
-import Entity from "../../entity/entity";
-import ExistsError from "../../errors/exists.error";
-import NotFoundError from "../../errors/not-found.error";
-import { InMemoryRepository } from "../in-memory-repository";
+import UniqueEntityId from "#seedwork/domain/value-objects/unique-entity-id.vo";
+import Entity from "#seedwork/domain/entity/entity";
+import ExistsError from "#seedwork/domain/errors/exists.error";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
+import { InMemoryRepository } from "#seedwork/domain/repository/in-memory-repository";
 
 type StubEntityProps = {
   name: string;
