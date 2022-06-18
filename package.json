@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
+    "tsc:check": "npm run tsc -- --noEmit",
     "ts-node": "ts-node",
     "clean-tsc": "rm dist/tsconfig.tsbuildinfo",
     "test": "jest",
