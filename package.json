@@ -1,21 +1,14 @@
 {
-  "name": "replay-micro-videos",
-  "version": "1.0.0",
-  "description": "replay admin do catalogo de videos",
+  "name": "replay-micro-videos-typescript",
+  "version": "0.0.1",
+  "description": "",
   "main": "index.js",
-  "imports": {
-    "#seedwork/*": "./dist/@seedwork/*.js",
-    "#category/*": "./dist/category/*.js"
-  },
+  "workspaces": [
+    "./src/@core",
+    "./src/nestjs"
+  ],
   "scripts": {
-    "tsc": "tsc",
-    "tsc:check": "npm run tsc -- --noEmit",
-    "ts-node": "ts-node",
-    "clean-tsc": "rm dist/tsconfig.tsbuildinfo",
-    "test": "jest",
-    "test:cov": "npm run test -- --coverage",
-    "cti": "cti",
-    "cti:@core": "sh ./cti.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,22 +20,5 @@
   "bugs": {
     "url": "https://github.com/celsopires1999/replay-micro-videos-typescript/issues"
   },
-  "homepage": "https://github.com/celsopires1999/replay-micro-videos-typescript#readme",
-  "devDependencies": {
-    "@swc/core": "^1.2.196",
-    "@swc/jest": "^0.2.21",
-    "@types/jest": "^28.1.1",
-    "@types/lodash": "^4.14.182",
-    "@types/node": "^17.0.38",
-    "@types/uuid": "^8.3.4",
-    "create-ts-index": "^1.14.0",
-    "jest": "^28.1.1",
-    "lodash": "^4.17.21",
-    "ts-node": "^10.8.0",
-    "typescript": "^4.7.2"
-  },
-  "dependencies": {
-    "class-validator": "^0.13.2",
-    "uuid": "^8.3.2"
-  }
+  "homepage": "https://github.com/celsopires1999/replay-micro-videos-typescript#readme"
 }

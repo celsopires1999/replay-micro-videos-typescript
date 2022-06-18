@@ -4,11 +4,11 @@ import CategoryRepository from "#category/domain/repository/category-repository"
 import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
 
 let repository: CategoryInMemoryRepository;
-let useCase: ListCategoryUseCase;
+let useCase: ListCategoryUseCase.UseCase;
 
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
-  useCase = new ListCategoryUseCase(repository);
+  useCase = new ListCategoryUseCase.UseCase(repository);
 });
 
 describe("ListCategoriesUseCase Unit Tests", () => {

@@ -4,5 +4,7 @@ services:
   app:
     build: .
     container_name: replay-micro-videos-typscript-app
-    volumes: 
+    volumes:
       - .:/home/node/app
+    ports:
+      - 3000:3000

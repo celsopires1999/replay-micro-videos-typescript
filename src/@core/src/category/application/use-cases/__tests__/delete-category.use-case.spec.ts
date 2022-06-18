@@ -4,10 +4,10 @@ import { CategoryInMemoryRepository } from "#category/infra/repository/category-
 import DeleteCategoryUseCase from "#category/application/use-cases/delete-category.use-case";
 
 let repository: CategoryInMemoryRepository;
-let useCase: DeleteCategoryUseCase;
+let useCase: DeleteCategoryUseCase.UseCase;
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
-  useCase = new DeleteCategoryUseCase(repository);
+  useCase = new DeleteCategoryUseCase.UseCase(repository);
 });
 
 describe("DeleteCategoryUseCase Unit Tests", () => {

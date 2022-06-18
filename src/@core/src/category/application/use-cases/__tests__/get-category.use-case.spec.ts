@@ -5,11 +5,11 @@ import { CategoryOutput } from "#category/application/use-cases/dto/category-out
 import GetCategoryUseCase from "#category/application/use-cases/get-category.use-case";
 
 let repository: CategoryInMemoryRepository;
-let useCase: GetCategoryUseCase;
+let useCase: GetCategoryUseCase.UseCase;
 
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
-  useCase = new GetCategoryUseCase(repository);
+  useCase = new GetCategoryUseCase.UseCase(repository);
 });
 
 describe("GetCategoryUseCase Unit Tests", () => {

@@ -4,10 +4,10 @@ import { CategoryInMemoryRepository } from "#category/infra/repository/category-
 import UpdateCategoryUseCase from "#category/application/use-cases/update-category.use-case";
 
 let repository: CategoryInMemoryRepository;
-let useCase: UpdateCategoryUseCase;
+let useCase: UpdateCategoryUseCase.UseCase;
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
-  useCase = new UpdateCategoryUseCase(repository);
+  useCase = new UpdateCategoryUseCase.UseCase(repository);
 });
 
 describe("UpdateCategoryUseCase Unit Tests", () => {
