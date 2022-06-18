@@ -1,3 +1,4 @@
+import UniqueEntityId from "../../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import Entity from "../../entity/entity";
 import ExistsError from "../../errors/exists.error";
 import NotFoundError from "../../errors/not-found.error";
@@ -32,16 +33,30 @@ describe("InMemoryRepository Unit Tests", () => {
     });
 
     it("should throw an error when id has not been found on find by id", async () => {
-      await loadData();
+      const fakeId = new UniqueEntityId();
       expect(repository.findById("fake id")).rejects.toThrowError(
         new NotFoundError(`Entity not found using ID fake id`)
+      );
+      expect(repository.findById(fakeId)).rejects.toThrowError(
+        new NotFoundError(`Entity not found using ID ${fakeId.value}`)
+      );
+    });
+
+    it("should throw an error when id has not been found on update", async () => {
+      const entity = new StubEntity({ name: "some name", price: 1 });
+
+      expect(repository.update(entity)).rejects.toThrowError(
+        new NotFoundError(`Entity not found on update using id ${entity.id}`)
       );
     });
 
     it("should throw an error when id has not been found on delete", async () => {
-      await loadData();
+      const fakeId = new UniqueEntityId();
       expect(repository.delete("fake id")).rejects.toThrowError(
         new NotFoundError(`Entity not found on delete using id fake id`)
+      );
+      expect(repository.delete(fakeId)).rejects.toThrowError(
+        new NotFoundError(`Entity not found on delete using id ${fakeId.value}`)
       );
     });
   });

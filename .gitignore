@@ -2,3 +2,4 @@
 .docker/zsh/history/.zsh_history
 node_modules
 dist
+__coverage

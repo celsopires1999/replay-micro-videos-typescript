@@ -82,16 +82,27 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
 
     it("should sort items", async () => {
       const items = [
-        new StubEntity({ name: "b", price: 5 }),
-        new StubEntity({ name: "a", price: 5 }),
-        new StubEntity({ name: "c", price: 5 }),
+        new StubEntity({ name: "b", price: 5 }), // 0
+        new StubEntity({ name: "a", price: 5 }), // 1
+        new StubEntity({ name: "a", price: 5 }), // 2
+        new StubEntity({ name: "c", price: 5 }), // 3
       ];
 
       let sortedItems = await repository["applySort"](items, "name", "asc");
-      expect(sortedItems).toStrictEqual([items[1], items[0], items[2]]);
+      expect(sortedItems).toStrictEqual([
+        items[1],
+        items[2],
+        items[0],
+        items[3],
+      ]);
 
       sortedItems = await repository["applySort"](items, "name", "desc");
-      expect(sortedItems).toStrictEqual([items[2], items[0], items[1]]);
+      expect(sortedItems).toStrictEqual([
+        items[3],
+        items[0],
+        items[1],
+        items[2],
+      ]);
     });
   });
 
