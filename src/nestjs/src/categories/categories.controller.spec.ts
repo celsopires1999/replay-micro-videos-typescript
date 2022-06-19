@@ -63,7 +63,7 @@ describe('CategoriesController', () => {
     //@ts-expect-error mock for testing
     controller['updateUseCase'] = mockUpdateUseCase;
 
-    const output = controller.update(id, input);
+    const output = await controller.update(id, input);
 
     expect(mockUpdateUseCase.execute).toBeCalledWith({ id, ...input });
     expect(output).toStrictEqual(expectedOutput);

@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Category } from '@fc/replay-micro-videos/category/domain';
 
 @Controller()
 export class AppController {
@@ -8,7 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    console.log(Category);
     return this.appService.getHello();
   }
 }

@@ -16,7 +16,7 @@ import {
   CreateCategoryUseCase,
   DeleteCategoryUseCase,
   GetCategoryUseCase,
-  ListCategoryUseCase,
+  ListCategoriesUseCase,
   UpdateCategoryUseCase,
 } from '@fc/replay-micro-videos/category/application';
 
@@ -34,8 +34,8 @@ export class CategoriesController {
   @Inject(GetCategoryUseCase.UseCase)
   private readonly getUseCase: GetCategoryUseCase.UseCase;
 
-  @Inject(ListCategoryUseCase.UseCase)
-  private readonly listUseCase: ListCategoryUseCase.UseCase;
+  @Inject(ListCategoriesUseCase.UseCase)
+  private readonly listUseCase: ListCategoriesUseCase.UseCase;
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {

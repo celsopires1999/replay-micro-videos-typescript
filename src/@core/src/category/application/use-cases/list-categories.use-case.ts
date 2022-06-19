@@ -10,7 +10,7 @@ import {
   CategoryOutputMapper,
 } from "#category/application/use-cases/dto/category-output.dto";
 
-export namespace ListCategoryUseCase {
+export namespace ListCategoriesUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private categoryRepository: CategoryRepository.Repository) {}
 
@@ -33,4 +33,4 @@ export namespace ListCategoryUseCase {
   export type Output = PaginationOutputDto<CategoryOutput>;
 }
 
-export default ListCategoryUseCase;
+export default ListCategoriesUseCase;

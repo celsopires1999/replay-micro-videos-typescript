@@ -1,14 +1,14 @@
-import { ListCategoryUseCase } from "#category/application/use-cases/list-category.use-case";
+import { ListCategoriesUseCase } from "#category/application/use-cases/list-categories.use-case";
 import Category from "#category/domain/entities/category";
 import CategoryRepository from "#category/domain/repository/category-repository";
 import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
 
 let repository: CategoryInMemoryRepository;
-let useCase: ListCategoryUseCase.UseCase;
+let useCase: ListCategoriesUseCase.UseCase;
 
 beforeEach(() => {
   repository = new CategoryInMemoryRepository();
-  useCase = new ListCategoryUseCase.UseCase(repository);
+  useCase = new ListCategoriesUseCase.UseCase(repository);
 });
 
 describe("ListCategoriesUseCase Unit Tests", () => {
