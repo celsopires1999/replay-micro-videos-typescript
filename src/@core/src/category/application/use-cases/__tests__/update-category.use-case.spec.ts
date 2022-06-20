@@ -1,6 +1,6 @@
 import NotFoundError from "#seedwork/domain/errors/not-found.error";
 import Category from "#category/domain/entities/category";
-import { CategoryInMemoryRepository } from "#category/infra/repository/category-in-memory.repository";
+import { CategoryInMemoryRepository } from "#category/infra/db/in-memory/category-in-memory.repository";
 import UpdateCategoryUseCase from "#category/application/use-cases/update-category.use-case";
 
 let repository: CategoryInMemoryRepository;
