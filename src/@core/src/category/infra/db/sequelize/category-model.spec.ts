@@ -1,9 +1,9 @@
 import { DataType } from "sequelize-typescript";
 import { CategoryModel } from "./category-model";
-import { setSequelize } from "#seedwork/infra/testing/helpers/db";
+import { setupSequelize } from "#seedwork/infra/testing/helpers/db";
 
 describe("CategoryModel Unit Tests", () => {
-  setSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategoryModel] });
 
   test("mapping attributes", () => {
     const attributesMap = CategoryModel.getAttributes();

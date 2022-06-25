@@ -6,7 +6,7 @@ const sequelizeOptions: SequelizeOptions = {
   logging: false,
 };
 
-export function setSequelize(options: SequelizeOptions) {
+export function setupSequelize(options: SequelizeOptions) {
   let _sequelize: Sequelize;
 
   beforeAll(
