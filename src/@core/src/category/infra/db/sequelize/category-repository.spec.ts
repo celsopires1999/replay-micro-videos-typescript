@@ -1,5 +1,5 @@
 import { Category, CategoryRepository } from "#category/domain";
-import { NotFoundError } from "#seedwork/domain";
+import { NotFoundError, UniqueEntityId } from "#seedwork/domain";
 import { setupSequelize } from "#seedwork/infra";
 import { CategoryModel } from "./category-model";
 import { CategorySequelizeRepository } from "./category-repository";
@@ -172,9 +172,20 @@ describe("CategorySequelizeRepository Unit Tests", () => {
           created_at: new Date(created_at.getTime() + 100 * index),
         }));
 
-      const searchOutputExpected = [...models]
+      const expectedItems = [...models]
         .reverse()
-        .map((model) => CategoryModelMapper.toEntity(model))
+        .map(
+          (model) =>
+            new Category(
+              {
+                name: model.name,
+                description: model.description,
+                is_active: model.is_active,
+                created_at: model.created_at,
+              },
+              new UniqueEntityId(model.id)
+            )
+        )
         .slice(0, 15);
 
       const spyToEntity = jest.spyOn(CategoryModelMapper, "toEntity");
@@ -187,7 +198,7 @@ describe("CategorySequelizeRepository Unit Tests", () => {
       expect(spyToEntity).toHaveBeenCalledTimes(15);
       expect(searchOutputActual.toJSON()).toMatchObject(
         new CategoryRepository.SearchResult({
-          items: searchOutputExpected,
+          items: expectedItems,
           total: 16,
           current_page: 1,
           per_page: 15,
