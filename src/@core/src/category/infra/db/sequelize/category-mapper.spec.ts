@@ -14,7 +14,6 @@ describe("CategorySequelizeMapper Unit Tests", () => {
     });
     try {
       CategoryModelMapper.toEntity(model);
-      console.log("passou aqui");
       fail("The category has not thrown a LoadEntityError");
     } catch (e) {
       expect(e).toBeInstanceOf(LoadEntityError);
