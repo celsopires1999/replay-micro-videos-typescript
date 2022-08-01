@@ -4,7 +4,7 @@ import Category, {
 
 describe("Category Integration Tests", () => {
   describe("validations with errors", () => {
-    test("name prop", () => {
+    describe("name prop", () => {
       const arrange = [
         {
           name: null as any,
@@ -66,13 +66,13 @@ describe("Category Integration Tests", () => {
           },
         },
       ];
-      arrange.forEach((i) => {
+      test.each(arrange)(`when name prop is "$name"`, (i) => {
         expect(
           () => new Category({ name: i.name } as any)
         ).containsErrorMessages(i.message);
       });
     });
-    test("description prop", () => {
+    describe("description prop", () => {
       const arrange = [
         {
           description: 5,
@@ -88,7 +88,7 @@ describe("Category Integration Tests", () => {
         },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)(`when description prop is "$description"`, (i) => {
         expect(
           () =>
             new Category({
@@ -99,7 +99,7 @@ describe("Category Integration Tests", () => {
       });
     });
 
-    test("is_active prop", () => {
+    describe("is_active prop", () => {
       const arrange = [
         {
           is_active: 5,
@@ -133,7 +133,7 @@ describe("Category Integration Tests", () => {
         },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)(`when is_active prop is "$is_active"`, (i) => {
         expect(
           () =>
             new Category({
@@ -144,7 +144,7 @@ describe("Category Integration Tests", () => {
       });
     });
 
-    it("should throw an error by updating", () => {
+    describe("should throw an error by updating", () => {
       const arrange = [
         {
           name: "",
@@ -227,13 +227,16 @@ describe("Category Integration Tests", () => {
         description: "some description",
       });
 
-      arrange.forEach((i) => {
-        expect(() =>
-          entity.update(i.name as any, i.description as any)
-        ).containsErrorMessages(i.message);
-        expect(entity.name).toBe("some name");
-        expect(entity.description).toBe("some description");
-      });
+      test.each(arrange)(
+        `when name is "$name" and description is "$description"`,
+        (i) => {
+          expect(() =>
+            entity.update(i.name as any, i.description as any)
+          ).containsErrorMessages(i.message);
+          expect(entity.name).toBe("some name");
+          expect(entity.description).toBe("some description");
+        }
+      );
     });
 
     it("should throw an error by activating", () => {
@@ -249,7 +252,7 @@ describe("Category Integration Tests", () => {
     });
   });
   describe("successfull operations", () => {
-    it("should create a category", () => {
+    describe("should create a category", () => {
       const arrange: CategoryProperties[] = [
         { name: "some name" },
         { name: "some name", description: "some description" },
@@ -267,7 +270,7 @@ describe("Category Integration Tests", () => {
         },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) when props are %o ", (i) => {
         const entity = new Category({
           name: i.name,
           description: i.description,

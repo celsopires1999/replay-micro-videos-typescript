@@ -176,7 +176,7 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
         })
       );
     });
-    it("should apply paginate and sort", async () => {
+    describe("should apply paginate and sort", () => {
       const items = [
         new StubEntity({ name: "b", price: 5 }), // 0
         new StubEntity({ name: "a", price: 5 }), // 1
@@ -184,17 +184,18 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
         new StubEntity({ name: "e", price: 5 }), // 3
         new StubEntity({ name: "c", price: 5 }), // 4
       ];
-      repository.items = items;
+
+      beforeEach(() => (repository.items = items));
 
       const arrange = [
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 1,
             per_page: 2,
             sort: "name",
             sort_dir: "asc",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[1], items[0]],
             total: 5,
             current_page: 1,
@@ -205,13 +206,13 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
           }),
         },
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 2,
             per_page: 2,
             sort: "name",
             sort_dir: "asc",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[4], items[2]],
             total: 5,
             current_page: 2,
@@ -222,13 +223,13 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
           }),
         },
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 1,
             per_page: 2,
             sort: "name",
             sort_dir: "desc",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[3], items[2]],
             total: 5,
             current_page: 1,
@@ -239,13 +240,13 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
           }),
         },
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 2,
             per_page: 2,
             sort: "name",
             sort_dir: "desc",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[4], items[0]],
             total: 5,
             current_page: 2,
@@ -257,13 +258,16 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
         },
       ];
 
-      for (const i of arrange) {
-        const result = await repository.search(i.params);
-        expect(result).toStrictEqual(i.result);
-      }
+      test.each(arrange)(
+        "when search_params is $search_params",
+        async ({ search_params, search_result }) => {
+          const result = await repository.search(search_params);
+          expect(result).toStrictEqual(search_result);
+        }
+      );
     });
 
-    it("should search using filter, sort and paginate", async () => {
+    describe("should search using filter, sort and paginate", () => {
       const items = [
         new StubEntity({ name: "test", price: 5 }), // 0
         new StubEntity({ name: "a", price: 5 }), // 1
@@ -271,18 +275,19 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
         new StubEntity({ name: "e", price: 5 }), // 3
         new StubEntity({ name: "TeSt", price: 5 }), // 4
       ];
-      repository.items = items;
+
+      beforeEach(() => (repository.items = items));
 
       const arrange = [
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 1,
             per_page: 2,
             sort: "name",
             sort_dir: "asc",
             filter: "TEST",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[2], items[4]],
             total: 3,
             current_page: 1,
@@ -293,14 +298,14 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
           }),
         },
         {
-          params: new SearchParams({
+          search_params: new SearchParams({
             page: 2,
             per_page: 2,
             sort: "name",
             sort_dir: "asc",
             filter: "TEST",
           }),
-          result: new SearchResult({
+          search_result: new SearchResult({
             items: [items[0]],
             total: 3,
             current_page: 2,
@@ -312,10 +317,13 @@ describe("InMemorySearchableReposiory Unit Tests", () => {
         },
       ];
 
-      for (const i of arrange) {
-        const result = await repository.search(i.params);
-        expect(result).toStrictEqual(i.result);
-      }
+      test.each(arrange)(
+        "when search_params is $search_params",
+        async ({ search_params, search_result }) => {
+          const result = await repository.search(search_params);
+          expect(result).toStrictEqual(search_result);
+        }
+      );
     });
   });
 });

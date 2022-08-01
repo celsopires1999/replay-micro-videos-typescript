@@ -6,7 +6,7 @@ import {
 
 describe("Search Unit Tests", () => {
   describe("SearchParams Unit Tests", () => {
-    test("page prop", () => {
+    describe("page prop", () => {
       const params = new SearchParams();
       expect(params.page).toBe(1);
 
@@ -26,11 +26,11 @@ describe("Search Unit Tests", () => {
         { page: 2, expected: 2 },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) when page props are %o", (i) => {
         expect(new SearchParams({ page: i.page as any }).page).toBe(i.expected);
       });
     });
-    test("per_page prop", () => {
+    describe("per_page prop", () => {
       const params = new SearchParams();
       expect(params.per_page).toBe(15);
 
@@ -51,14 +51,14 @@ describe("Search Unit Tests", () => {
         { per_page: 10, expected: 10 },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) when per_page prop is %o", (i) => {
         expect(new SearchParams({ per_page: i.per_page as any }).per_page).toBe(
           i.expected
         );
       });
     });
 
-    test("sort prop", () => {
+    describe("sort prop", () => {
       const params = new SearchParams();
       expect(params.sort).toBe(null);
 
@@ -75,12 +75,12 @@ describe("Search Unit Tests", () => {
         { sort: "field", expected: "field" },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) when sort prop is %o", (i) => {
         expect(new SearchParams({ sort: i.sort as any }).sort).toBe(i.expected);
       });
     });
 
-    test("sort_dir prop", () => {
+    describe("sort_dir prop", () => {
       let params = new SearchParams({ sort: null });
       expect(params.sort_dir).toBeNull();
 
@@ -105,7 +105,7 @@ describe("Search Unit Tests", () => {
         { sort_dir: "DESC", expected: "desc" },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) when sort_dir prop is %o", (i) => {
         expect(
           new SearchParams({ sort: "field", sort_dir: i.sort_dir as any })
             .sort_dir
@@ -113,7 +113,7 @@ describe("Search Unit Tests", () => {
       });
     });
 
-    test("filter prop", () => {
+    describe("filter prop", () => {
       const params = new SearchParams();
       expect(params.filter).toBeNull();
 
@@ -131,7 +131,7 @@ describe("Search Unit Tests", () => {
         { filter: "field", expected: "field" },
       ];
 
-      arrange.forEach((i) => {
+      test.each(arrange)("%#) filter prop is %o", (i) => {
         expect(new SearchParams({ filter: i.filter as any }).filter).toBe(
           i.expected
         );

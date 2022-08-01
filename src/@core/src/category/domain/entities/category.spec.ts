@@ -141,7 +141,7 @@ describe("Category Unit Test", () => {
     expect(entity.created_at).toBe(now);
   });
 
-  test("id prop", () => {
+  describe("id prop", () => {
     const arrange = [
       { name: "new category", id: new UniqueEntityId("") },
       { name: "new category", id: new UniqueEntityId(undefined) },
@@ -152,7 +152,7 @@ describe("Category Unit Test", () => {
       },
     ];
 
-    arrange.forEach((item) => {
+    test.each(arrange)("%#) when props are %j", (item) => {
       const entity = new Category({ name: item.name }, item.id);
       expect(entity.id).not.toBeNull();
       expect(uuidValidate(entity.id)).toBeTruthy();

@@ -280,8 +280,10 @@ describe("CategorySequelizeRepository Unit Tests", () => {
       );
     });
 
-    it("should apply paginate and sort", async () => {
-      expect(repository.sortableFields).toStrictEqual(["name", "created_at"]);
+    describe("should apply paginate and sort", () => {
+      it("should have name and created_at as sortableFields", () => {
+        expect(repository.sortableFields).toStrictEqual(["name", "created_at"]);
+      });
 
       const defaultProps = {
         description: null,
@@ -297,8 +299,9 @@ describe("CategorySequelizeRepository Unit Tests", () => {
         { id: chance.guid({ version: 4 }), name: "c", ...defaultProps }, // 4
       ];
 
-      const models = await CategoryModel.bulkCreate(categoryProps);
-      const items = models.map((model) => CategoryModelMapper.toEntity(model));
+      beforeEach(async () => {
+        await CategoryModel.bulkCreate(categoryProps);
+      });
 
       const arrange = [
         {
@@ -308,7 +311,10 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort: "name",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[1], items[0]],
+            items: [
+              new Category(categoryProps[1]),
+              new Category(categoryProps[0]),
+            ],
             current_page: 1,
             per_page: 2,
             total: 5,
@@ -324,7 +330,10 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort: "name",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[4], items[2]],
+            items: [
+              new Category(categoryProps[4]),
+              new Category(categoryProps[2]),
+            ],
             current_page: 2,
             per_page: 2,
             total: 5,
@@ -340,7 +349,7 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort: "name",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[3]],
+            items: [new Category(categoryProps[3])],
             current_page: 3,
             per_page: 2,
             total: 5,
@@ -358,7 +367,10 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort_dir: "desc",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[3], items[2]],
+            items: [
+              new Category(categoryProps[3]),
+              new Category(categoryProps[2]),
+            ],
             current_page: 1,
             per_page: 2,
             total: 5,
@@ -375,7 +387,10 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort_dir: "desc",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[4], items[0]],
+            items: [
+              new Category(categoryProps[4]),
+              new Category(categoryProps[0]),
+            ],
             current_page: 2,
             per_page: 2,
             total: 5,
@@ -392,7 +407,7 @@ describe("CategorySequelizeRepository Unit Tests", () => {
             sort_dir: "desc",
           }),
           searchResult: new CategoryRepository.SearchResult({
-            items: [items[1]],
+            items: [new Category(categoryProps[1])],
             current_page: 3,
             per_page: 2,
             total: 5,
@@ -403,11 +418,14 @@ describe("CategorySequelizeRepository Unit Tests", () => {
         },
       ];
 
-      for (const i of arrange) {
-        expect(
-          (await repository.search(i.searchParams)).toJSON()
-        ).toMatchObject(i.searchResult.toJSON());
-      }
+      test.each(arrange)(
+        "when searchParam is $searchParams",
+        async ({ searchParams, searchResult }) => {
+          expect(
+            (await repository.search(searchParams)).toJSON()
+          ).toMatchObject(searchResult.toJSON());
+        }
+      );
     });
 
     describe("should search using filter, sort and paginate", () => {
